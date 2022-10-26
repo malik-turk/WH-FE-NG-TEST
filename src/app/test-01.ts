@@ -12,15 +12,28 @@ import { RouterModule } from "@angular/router";
     selector : 'ng-app',
     template : `<div>
                     <h2>Loan Details</h2>
-                    <b>Monthly Payment:</b> {{monthly_payment}} <br/>
-                    <b>Late Payment Fee : {{late_payment}}</b> <br/>
+                    <b>Monthly Payment:</b> {{ monthly_payment }} <br/>
+                    <b>Late Payment Fee : {{ late_payment }}</b> <br/>
+                    <button (click)="changeValue()">asdasd</button>
                 </div>`
 })
 export class Test01Component {
 
     loan_amount:number = 1000;
-    monthly_payment:number = 200;
-    late_payment = 10;
+    monthly_payment: number|string = 200;
+    late_payment: number|string = 10;
+
+    changeValue() {
+        // we can add it inside the template but
+        // it's better to keep it clean
+        if (!this.loan_amount) {
+            this.late_payment = 'N/A';
+            this.monthly_payment = 'N/A';
+        } else {
+            this.monthly_payment = this.loan_amount * 0.02;
+            this.late_payment = this.monthly_payment * 0.05;
+        }
+    }
 }
 
 @NgModule({

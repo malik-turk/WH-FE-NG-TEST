@@ -31,6 +31,7 @@ import { CommonModule } from '@angular/common';
             border: solid 1px #f9f6f6;
             padding: 5px;
             background: #ecebeb; 
+            white-space: break-spaces;
         }`
     ]
 })
@@ -49,7 +50,13 @@ At https://wallethub.com <b>bolded text</b>`
     review_content = ""
 
     ngOnInit() {
-        this.review_content = this.review_input;
+        let tempInput = this.review_input.replace(/(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/, (link)=> {
+            console.log(link)
+            return '<a href="'+link+'">'+link+'</a>';
+        });
+        tempInput = tempInput.replace(/\n/gm, '<br/ >');
+
+        this.review_content = tempInput;
     }
 
 }
